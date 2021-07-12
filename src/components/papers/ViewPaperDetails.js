@@ -17,8 +17,17 @@ const ViewPaperDetails = () => {
     loadUser();
   }, []);
   const loadUser = async () => {
-    const res = await axios.get(`http://localhost:3003/papers/${id}`);
-    setPaper(res.data);
+    const res = await axios.get(`/papers/${id}`);
+    console.log('view paper: ', res.data)
+    let data = res.data;
+    let text = 'uploads\\';
+    let linkStart = data.pdf.indexOf(text) + text.length;
+    let link = data.pdf.substr(linkStart, data.pdf.length);
+    data.pdf = link;
+    // date string
+    let date = new Date(data.createdAt);
+    data.createdAt = date.toDateString();
+    setPaper(data);
   };
   return (
     <>
@@ -37,9 +46,10 @@ const ViewPaperDetails = () => {
               <li className="list-group-item">Session: {paper.session}</li>
               <li className="list-group-item">Subject: {paper.subject}</li>
               <li className="list-group-item">Year & Sem: {paper.yearWithSem}</li>
+              <li className="list-group-item">Created Date: {paper.createdAt}</li>
             </ul>
             <Link
-              to={`/view-paper/${paper.id}`}
+              to={`/view-paper/${paper.pdf}`}
               className="btn btn-success shadow mt-3"
             >
               View Paper

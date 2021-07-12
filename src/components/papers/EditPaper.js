@@ -28,12 +28,14 @@ const EditPaper = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    await axios.put(`http://localhost:3003/papers/${id}`, paper);
+    const result = await axios.patch(`/papers/${id}`, paper);
+    console.log('edit patch: ', result.data);
     history.push("/admin-dashboard");
   };
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:3003/papers/${id}`);
+    const result = await axios.get(`/papers/${id}`);
+    console.log('edit: ', result.data);
     setPaper(result.data);
   };
   return (

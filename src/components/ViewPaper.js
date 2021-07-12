@@ -252,16 +252,18 @@ import axios from 'axios';
 
 const ViewPaper = ({ match }) => {
 
-  const [defaultPdfFile, setDefaultPdfFile]=useState(pdfFile);
+  const [defaultPdfFile, setDefaultPdfFile]=useState(`http://localhost:9000/uploads/${match.params.id}`);
 
   // Create new plugin instance
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
+  // ---------------------------------------------------------------------------
   // const getPdf = (id) => {
   //   axios
-  //     .get("https://unsplash.com/photos/Jvw3pxgeiZw/download?force=true")
+  //     .get(`/uploads/${id}`)
   //     .then((res) => {
-  //       console.log(res.data);
+  //       console.log('my: ',res.data)
+  //       setDefaultPdfFile(res.data);
   //     })
   //     .catch((err) => {
   //       console.log(err);
@@ -272,6 +274,7 @@ const ViewPaper = ({ match }) => {
   //   console.log(match.params.id);
   //   getPdf(match.params.id);
   // }, []);
+  // ---------------------------------------------------------------------------
 
   return (
       <div className='pdf-container'>

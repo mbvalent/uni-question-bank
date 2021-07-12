@@ -17,6 +17,7 @@ import AddPaper from "./papers/AddPaper";
 import EditPaper from "./papers/EditPaper";
 import ViewPaperDetails from "./papers/ViewPaperDetails";
 import Header from "./Header";
+import NewHome from "./NewHome";
 
 function App() {
   return (
@@ -33,12 +34,12 @@ function App() {
             <Route path="/signup" component={SignUp} />
             <Route path="/forget-password" component={ForgetPassword} />
             <Route path="/login" component={Login} />
-            <Route path="/PaperSearchResult" component={PaperSearchResult} />
             <Route path="/view-paper/:id" component={ViewPaper} />
             <Route path="/otp-verification" component={OtpVerification} />
             <Route exact path="/papers/add" component={AddPaper} />
             <Route exact path="/papers/edit/:id" component={EditPaper} />
             <Route exact path="/papers/:id" component={ViewPaperDetails} />
+            <Route exact path="/search-all" component={NewHome} />
           </Switch>
         </AuthProvider>
       </Router>

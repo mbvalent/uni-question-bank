@@ -5,23 +5,16 @@ import { Spinner } from "react-bootstrap";
 import Footer from "./Footer";
 import axios from "axios";
 import Paper from "./Paper";
+import { Link, useParams } from "react-router-dom";
+
 
 // import events from './sampleEvents'
 
 const PaperSearchResult = ({queryData}) => {
-  const [papers, setPapers] = useState([{
-    id: 123,
-    branchName: 'Computer Science & Engineering',
-    session: '2020-21',
-    subject: 'Computer Architecture',
-    yearWithSem: '1st Year (1st Sem)'
-  },{
-    id: 124,
-    branchName: 'Electronics & Communication Engineering',
-    session: '2020-21',
-    subject: 'Computer Architecture',
-    yearWithSem: '1st Year (1st Sem)'
-  }]);
+  console.log('asdw', queryData);
+  const [papers, setPapers] = useState(
+    () => queryData.length > 1 ? queryData : [queryData]
+  )
   const [loading, setLoading] = useState(false);
 
   //REALTIME Read FUNCTION
@@ -43,6 +36,10 @@ const PaperSearchResult = ({queryData}) => {
   //   // eslint-disable-next-line
   // }, []);
 
+  const doRefresh = () => {
+    window.location.reload();
+  }
+
   return loading ? (
     <div className="text-center spinner">
       <Spinner animation="border" role="status" />
@@ -50,14 +47,17 @@ const PaperSearchResult = ({queryData}) => {
   ) : (
     <div >
       <Header />
-
       <h1
         style={{ marginTop: "100px" }}
         className="text-info text-center display-4"
       >
         Search Results
       </h1>
-
+      <div className="container">
+        <button className="btn btn-primary mb-5" onClick={doRefresh}>
+          <i className="fas fa-arrow-left"></i> Search Again
+        </button>
+      </div>
       <Row>
         {papers.map((paper) => (
           <Col key={paper.id} sm={12} md={6} lg={4} xl={3}>
