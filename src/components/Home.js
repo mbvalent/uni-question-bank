@@ -29,7 +29,6 @@ const Home = () => {
 
   const handleBranchChange = (branch) => {
     setBranchName(branch);
-    console.log(branch);
     setShowNullOption(false);
   }
 
@@ -49,16 +48,15 @@ const Home = () => {
     if(!isValid()) {
       toast.success(
         'Fill all required fields!',
-        {
-          position: "top-center",
-          autoClose: 2500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+      {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return;
     }
     const qSchema = {
@@ -77,11 +75,9 @@ const Home = () => {
       const isJson = response.headers.get('content-type')?.includes('application/json');
       const data = isJson && await response.json();
 
-      // check for error response
       if (!response.ok) {
-          // get error message from body or default to response status
-          const error = (data && data.message) || response.status;
-          return Promise.reject(error);
+        const error = (data && data.message) || response.status;
+        return Promise.reject(error);
       }
       console.log('mydata:) ', data)
       if(!data){
@@ -100,18 +96,6 @@ const Home = () => {
         return;
       }
       setQueryData(data);
-      toast.success(
-        'Request Submitted Successfully!',
-        {
-          position: "top-center",
-          autoClose: 2500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
       setShowSearchResults(true)
     })
     .catch(error => {
@@ -184,14 +168,14 @@ const Home = () => {
 
               <form id="rest-form" onSubmit={(e)=> handleSubmit(e)} >
                 <div className="form-outline mb-2">
-                  <select onChange={(e) => handleBranchChange(e.target.value)} value={branchName} name="cars" id="cars" className="form-control">
+                  <select onChange={(e) => handleBranchChange(e.target.value)} value={branchName} className="form-control">
                     {showNullOption && (<option value="0" >
                       ---
                     </option>)}
                     <option value="cse">Computer Science & Engineering</option>
                     <option value="ec">Electronics & Communication Engineering</option>
                   </select>
-                  <label className="mt-2 form-label" for="form6Example3">
+                  <label className="mt-2 form-label">
                     Branch*
                   </label>
                 </div>
@@ -238,7 +222,6 @@ const Home = () => {
                 <button
                   type="submit"
                   className="btn btn-primary btn-block mb-2"
-                  // onClick={handlePaperSearch}
                   >
                   Search Paper <i className="fas fa-search"></i>
                 </button>

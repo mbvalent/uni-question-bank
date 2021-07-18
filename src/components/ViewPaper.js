@@ -257,6 +257,10 @@ const ViewPaper = ({ match }) => {
   // Create new plugin instance
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
+  useEffect(() => {
+    console.log(defaultPdfFile);
+  }, [defaultPdfFile])
+
   // ---------------------------------------------------------------------------
   // const getPdf = (id) => {
   //   axios

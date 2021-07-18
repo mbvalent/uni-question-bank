@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Form, Button, Card, Alert, Container, Spinner } from "react-bootstrap";
+import { Form, Button, Card, Alert, Container, Spinner, Row, Col } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Header from "./Header";
 import Footer from "./Footer";
 import app from "../firebase";
 import { v4 as uuidv4 } from "uuid";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function SignUp() {
   const emailRef = useRef();
@@ -19,6 +21,9 @@ export default function SignUp() {
   const history = useHistory();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [enrollment, setEnrollment] = useState('');
+
 
   useEffect(() => {
     fnameRef.current.focus();
@@ -26,11 +31,23 @@ export default function SignUp() {
 
   const ref = app.firestore().collection("users");
 
+  const isValidFields = () => {
+    if(!firstName || !lastName || !emailRef.current.value || !enrollment || !selectedDate){
+      return false;
+    }
+    return true;
+  }
+
   function addUser() {
+    if(!isValidFields()){
+      return setError("Fill all required fields!");
+    };
     const newUser = {
       firstName: firstName,
       lastName: lastName,
       email: emailRef.current.value,
+      enrollment: enrollment,
+      dateOfAdmission: selectedDate
     };
 
     ref
@@ -70,29 +87,61 @@ export default function SignUp() {
         className="mt-5 d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
       >
-        <div className=" w-100" style={{ maxWidth: "400px" }}>
+        <div className=" w-100" style={{ maxWidth: "500px" }}>
           <Card className="shadow">
             <Card.Body>
               <h2 className="text-center mb-4">Sign Up</h2>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
-                <Form.Group id="firstName">
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    ref={fnameRef}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  ></Form.Control>
-                </Form.Group>
-                <Form.Group id="lastName">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  ></Form.Control>
-                </Form.Group>
+                <Row className="mb-3">
+                  <Form.Group as={Col} id="firstName">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      ref={fnameRef}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group as={Col} id="lastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    ></Form.Control>
+                  </Form.Group>
+                </Row>
+                <Row className="mb-3">
+                  <Form.Group as={Col} id="enrollment number">
+                    <Form.Label>Enrollment no.*</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={(e) => setEnrollment(e.target.value)}
+                      placeholder="2017/CTAE/213"
+                      required
+                      pattern="^[0-9]+/[a-zA-Z]+/213$"
+                    ></Form.Control>
+                  </Form.Group>
+                  
+                  
+                  <Form.Group as={Col} id="lastName">
+                    <Form.Label>Date of Admission</Form.Label>
+                    <DatePicker
+                      className="w-100 form-control"
+                      selected={selectedDate}
+                      dateFormat="Pp"
+                      // timeIntervals={15}
+                      // isClearable
+                      // showTimeSelect
+                      // timeFormat="p"
+                      showYearDropdown
+                      scrollableMonthYearDropdown
+                      required
+                      onChange={(date) => setSelectedDate(date)}
+                    />
+                  </Form.Group>
+                </Row>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control

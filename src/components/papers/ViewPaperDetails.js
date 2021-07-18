@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 const ViewPaperDetails = () => {
   const [paper, setPaper] = useState({
@@ -29,6 +30,7 @@ const ViewPaperDetails = () => {
     data.createdAt = date.toDateString();
     setPaper(data);
   };
+  let history = useHistory();
   return (
     <>
       <Header/>
@@ -36,9 +38,9 @@ const ViewPaperDetails = () => {
         style={{ marginTop:"100px", minHeight: "100vh" }}
       >
           <div className="container w-100 py-4">
-            <Link className="btn btn-primary mb-5" to="/admin-dashboard">
-              back to Admin DashBoard
-            </Link>
+            <button className="btn btn-primary mb-5" onClick={() => history.goBack()}>
+              <i class="fas fa-arrow-left"></i> back
+            </button>
             <h1 className="display-4">{paper.subject}</h1>
             <hr />
             <ul className="list-group w-50">
@@ -52,7 +54,7 @@ const ViewPaperDetails = () => {
               to={`/view-paper/${paper.pdf}`}
               className="btn btn-success shadow mt-3"
             >
-              View Paper
+              View PDF
             </Link>
           </div>
       </Container>

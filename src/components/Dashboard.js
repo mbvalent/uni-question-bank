@@ -1,16 +1,36 @@
 import { Alert } from "bootstrap";
-import React, { useState } from "react";
-import { Card, Button, Container } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Footer from "./Footer";
 import Header from "./Header";
+import app from "../firebase";
+
 
 const Dashboard = () => {
   const [error, setError] = useState("");
+  const [userData, setUserData] = useState('')
   const { currentUser, logOut } = useAuth();
 
   const history = useHistory();
+  const ref = app.firestore().collection("users");
+
+  useEffect(() => {
+    ref.where("email", "==", currentUser.email)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            setUserData(doc.data());
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+  }, [])
+  
 
   async function handleLogout(e) {
     setError("");
@@ -34,7 +54,11 @@ const Dashboard = () => {
             <Card.Body>
               <h2 className="text-center mb-4">Profile</h2>
               {error && <Alert variant="danger">{error}</Alert>}
-              <strong>Email: </strong> {currentUser.email}
+              <strong>Email: </strong> {currentUser.email}<br/><br/>
+              <strong>First Name: </strong> {userData.firstName}<br/><br/>
+              <strong>Last Name: </strong> {userData.lastName}<br/><br/>
+              <strong>Enrollment No.: </strong> {userData.enrollment}<br/><br/>
+              {/* <strong>Date of Admission: </strong> {userData.dateOfAdmission} */}
               <Link to="/update-profile" className="btn btn-primary mt-3 w-100">
                 Update Profile
               </Link>

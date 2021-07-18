@@ -1,88 +1,85 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Container } from "react-bootstrap";
+import { Card, Container, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import pdfFile from '../pdf/sample.pdf';
-
 
 const Paper = ({ paper }) => {
-
+  const [newPaper, setNewPaper] = useState('');
+  const [error, setError] = useState('');
+  
   const handlePdfClick = (e) => {
     e.preventDefault();
     window.location.href = "http://www.africau.edu/images/default/sample.pdf"
-    // let fileURL = "http://www.africau.edu/images/default/sample.pdf"
-    // fetch('https://cors-anywhere.herokuapp.com/' + fileURL, {
-    // method: 'GET',
-    // // headers: {
-    // //   'Content-Type': 'application/pdf',
-    // // },
-    // })
-    // .then((response) => response.blob())
-    // .then((blob) => {
-    //   // Create blob link to download
-    //   const url = window.URL.createObjectURL(
-    //     new Blob([blob]),
-    //   );
-    //   const link = document.createElement('a');
-    //   link.href = url;
-    //   link.setAttribute(
-    //     'download',
-    //     `sample.pdf`,
-    //   );
-
-    //   // Append to html link element page
-    //   document.body.appendChild(link);
-
-    //   // Start download
-    //   link.click();
-
-    //   // Clean up and remove the link
-    //   link.parentNode.removeChild(link);
-    // });
   };
 
+  useEffect(() => {
+    console.log('paper', paper)
+    let data = paper;
+    let text = 'uploads\\';
+    if(data){
+      let linkStart = data.pdf.indexOf(text) + text.length;
+      let link = data.pdf.substr(linkStart, data.pdf.length);
+      data.pdf = link;
+      // date string
+      let date = new Date(data.createdAt);
+      data.createdAt = date.toDateString();
+      console.log('data', data);
+      setNewPaper(data);
+    } else {
+      console.error('No records found!aswwww ')
+    }
+  }, [])
 
-
-  return (
-    <div>
-      <Container>
-        <Card className="my-3 p-3 border-0 rounded shadow p-3 mb-5 bg-light rounded">
-          <Link to={`/view-paper/${paper.id}`}>
-            <Card.Img  variant="top" src='https://store-images.s-microsoft.com/image/apps.34961.13510798887621962.47b62c4c-a0c6-4e3c-87bb-509317d9c364.a6354b48-c68a-47fa-b69e-4cb592d42ffc?mode=scale&q=90&h=300&w=300' />
-          </Link>
-          <hr />
-          <Card.Body>
-            <Card.Text as="div">{paper.branchName}</Card.Text>
-            <Card.Text className="mt-3" as="h3">
-              {paper.session}
-            </Card.Text>
-            <Card.Text className="mt-3" as="h3">
-              {paper.subject}
-            </Card.Text>
-            <Card.Text className="mt-3" as="h3">
-              {paper.yearWithSem}
-            </Card.Text>
-            <hr />
-            <Link
-              to={`/view-paper/${paper.id}`}
-              className="btn btn-success shadow mt-3"
-            >
-              View Paper
+  if(error){
+    return (
+      <div style={{ minHeight: "100vh" }}>
+        <Container  className="d-flex align-items-center justify-content-center">
+          {error && (<Alert variant="danger">{error}</Alert>)}
+        </Container>
+      </div>
+    )
+  } else{
+    return (
+      <div>
+        <Container style={{ minHeight: "100vh" }}>
+          <Card className="my-3 p-3 border-0 rounded shadow p-3 mb-5 bg-light rounded">
+            <Link to={`/view-paper/${newPaper.id}`}>
+              <Card.Img  variant="top" src='https://store-images.s-microsoft.com/image/apps.34961.13510798887621962.47b62c4c-a0c6-4e3c-87bb-509317d9c364.a6354b48-c68a-47fa-b69e-4cb592d42ffc?mode=scale&q=90&h=300&w=300' />
             </Link>
-            {/* <Link
-              to="http://google.com"
-              className="btn btn-secondary float-right shadow mt-3"
-            > */}
-            <button className="btn btn-secondary float-right shadow mt-3" onClick={(e)=>handlePdfClick(e)}>
+            <hr />
+            <Card.Body>
+              <Card.Text as="div">{newPaper.branchName}</Card.Text>
+              <Card.Text className="mt-3" as="h3">
+                {newPaper.session}
+              </Card.Text>
+              <Card.Text className="mt-3" as="h3">
+                {newPaper.subject}
+              </Card.Text>
+              <Card.Text className="mt-3" as="h3">
+                {newPaper.yearWithSem}
+              </Card.Text>
+              <hr />
+              <Link
+                to={`/view-paper/${newPaper.pdf}`}
+                className="btn btn-success shadow mt-3"
+              >
+                View Paper
+              </Link>
+              {/* <Link
+                to="http://google.com"
+                className="btn btn-secondary float-right shadow mt-3"
+              > */}
+              <button className="btn btn-secondary float-right shadow mt-3" onClick={(e)=>handlePdfClick(e)}>
 
-              Download <i className="fas fa-file-download"></i>
-            </button>
-            {/* </Link> */}
-          </Card.Body>
-        </Card>
-      </Container>
-    </div>
-  );
+                Download <i className="fas fa-file-download"></i>
+              </button>
+              {/* </Link> */}
+            </Card.Body>
+          </Card>
+        </Container>
+      </div>
+    );
+  }
 };
 
 export default Paper;

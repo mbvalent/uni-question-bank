@@ -55,7 +55,6 @@ const Header = () => {
       </LinkContainer>
     );
   }
-  console.log(process.env.REACT_APP_ADMIN_ID);
 
   if (currentUser) {
     if (process.env.REACT_APP_ADMIN_ID === currentUser.email) {
@@ -83,7 +82,7 @@ const Header = () => {
         collapseOnSelect
       >
         <Container>
-          <LinkContainer to="/home">
+          <LinkContainer to="/">
             <Navbar.Brand>
               <i className="fas fa-university"></i>
               <strong
