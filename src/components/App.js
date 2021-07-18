@@ -9,8 +9,6 @@ import ForgetPassword from "./ForgetPassword";
 import UpdateProfile from "./UpdateProfile";
 import Home from "./Home";
 import PaperSearchResult from "./PaperSearchResult";
-import BookEvent from "./BookEvent";
-import OtpVerification from "./OtpVerification";
 import ViewPaper from "./ViewPaper";
 import AdminDashboard from "./AdminDashboard";
 import AddPaper from "./papers/AddPaper";
@@ -29,7 +27,6 @@ function App() {
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/home" component={Home} />
-            <PrivateRoute path="/book-event/:id" component={BookEvent} />
             <PrivateRoute path="/admin-dashboard" component={AdminDashboard} />
             <Route path="/signup" component={SignUp} />
             <Route path="/forget-password" component={ForgetPassword} />

@@ -3,7 +3,6 @@ import axios from 'axios';
 import Datatable from './datatable';
 import './NewHome.css';
 import Header from './Header';
-import SearchBar from './SearchBar';
 
 export default function NewHome() {
   const [data, setData] = useState([]);
