@@ -32,7 +32,6 @@ function App() {
             <Route path="/forget-password" component={ForgetPassword} />
             <Route path="/login" component={Login} />
             <Route path="/view-paper/:id" component={ViewPaper} />
-            <Route path="/otp-verification" component={OtpVerification} />
             <Route exact path="/papers/add" component={AddPaper} />
             <Route exact path="/papers/edit/:id" component={EditPaper} />
             <Route exact path="/papers/:id" component={ViewPaperDetails} />

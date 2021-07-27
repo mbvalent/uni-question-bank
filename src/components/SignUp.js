@@ -120,7 +120,7 @@ export default function SignUp() {
                       onChange={(e) => setEnrollment(e.target.value)}
                       placeholder="2017/CTAE/213"
                       required
-                      pattern="^[0-9]+/[a-zA-Z]+/213$"
+                      pattern="^[0-9]+/[a-zA-Z]+/[0-9]+$"
                     ></Form.Control>
                   </Form.Group>
                   

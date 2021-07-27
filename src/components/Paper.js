@@ -16,7 +16,7 @@ const Paper = ({ paper }) => {
     console.log('paper', paper)
     let data = paper;
     let text = 'uploads\\';
-    if(data){
+    if(data && data.pdf){
       let linkStart = data.pdf.indexOf(text) + text.length;
       let link = data.pdf.substr(linkStart, data.pdf.length);
       data.pdf = link;
