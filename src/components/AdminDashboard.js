@@ -45,7 +45,7 @@ const AdminDashboard = () => {
   const [offset, setOffset] = useState(0);
   const [tableData, setTableData] = useState([]);
   const [orgtableData, setOrgtableData] = useState([]);
-  const [perPage, setPerPage] = useState(3);
+  const [perPage, setPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageCount, setPageCount] = useState(null);
 
@@ -158,7 +158,7 @@ const AdminDashboard = () => {
             <table className="mb-5  table table-hover border shadow">
               <thead className="text-center thead-dark">
                 <tr>
-                  <th scope="col">#</th>
+                  {/* <th scope="col">#</th> */}
                   <th scope="col">Banch Name</th>
                   <th scope="col">Year & Sem</th>
                   <th scope="col">Subject</th>
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
               <tbody>
                 {tableData.map((paper, index) => (
                   <tr key={paper._id}>
-                    <th className="align-middle" scope="row">{index + 1}</th>
+                    {/* <th className="align-middle" scope="row">{index + 1}</th> */}
                     <td className="align-middle">{paper.branchName}</td>
                     <td className="align-middle">{paper.yearWithSem}</td>
                     <td className="align-middle">{paper.subject}</td>

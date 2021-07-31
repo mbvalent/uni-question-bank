@@ -12,11 +12,15 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const [userData, setUserData] = useState('')
   const { currentUser, logOut } = useAuth();
+  const [shallShowEnrollment, setShallShowEnrollment] = useState(true)
 
   const history = useHistory();
   const ref = app.firestore().collection("users");
 
   useEffect(() => {
+    if(currentUser.email == process.env.REACT_APP_ADMIN_ID){
+      setShallShowEnrollment(false);
+    }
     ref.where("email", "==", currentUser.email)
     .get()
     .then((querySnapshot) => {
@@ -42,6 +46,17 @@ const Dashboard = () => {
     }
   }
 
+  
+
+
+  const renderEnrollment = () => {
+    if(shallShowEnrollment){
+      return <strong>Enrollment No.: </strong>
+    } else{
+      return;
+    }
+  }
+
   return (
     <>
       <Header />
@@ -57,22 +72,13 @@ const Dashboard = () => {
               <strong>Email: </strong> {currentUser.email}<br/><br/>
               <strong>First Name: </strong> {userData.firstName}<br/><br/>
               <strong>Last Name: </strong> {userData.lastName}<br/><br/>
-              <strong>Enrollment No.: </strong> {userData.enrollment}<br/><br/>
+              {renderEnrollment()} {shallShowEnrollment && userData.enrollment}
               {/* <strong>Date of Admission: </strong> {userData.dateOfAdmission} */}
               <Link to="/update-profile" className="btn btn-primary mt-3 w-100">
                 Update Profile
               </Link>
             </Card.Body>
           </Card>
-          <div className="w-100 text-center mt-2">
-            <Button
-              className="shadow-none"
-              variant="link"
-              onClick={handleLogout}
-            >
-              Log Out
-            </Button>
-          </div>
         </div>
       </Container>
       <Footer />

@@ -18,6 +18,10 @@ import Header from "./Header";
 import NewHome from "./NewHome";
 
 function App() {
+  window.onunload = () => {
+   // Clear the local storage
+    window.MyStorage.clear()
+  }
   return (
     <>
       <Router>

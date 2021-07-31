@@ -115,7 +115,9 @@ const Home = () => {
       axios.get(`/branches/${branchName}/${yearWithSem}`).then((res) => {
         console.log(res.data);
         if(res.data){
-          setSubjectsOption(res.data);
+          if(res.data.length){
+            setSubjectsOption(res.data);
+          }
         }
       })
       .catch((err) => {
@@ -202,7 +204,7 @@ const Home = () => {
                     <option value="0" >
                       ---
                     </option>
-                    {subjectsOption.map((sub, index) => (<option value={sub.name} key={ sub._id }>{sub.name}</option>))}
+                    {subjectsOption && subjectsOption.map((sub, index) => (<option value={sub.name} key={ sub._id }>{sub.name}</option>))}
                   </select>
                   <label className="mt-2 form-label" for="form6Example3">
                     Subject

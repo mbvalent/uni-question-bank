@@ -95,7 +95,7 @@ export default function SignUp() {
               <Form onSubmit={handleSubmit}>
                 <Row className="mb-3">
                   <Form.Group as={Col} id="firstName">
-                    <Form.Label>First Name</Form.Label>
+                    <Form.Label>First Name*</Form.Label>
                     <Form.Control
                       type="text"
                       ref={fnameRef}
@@ -104,7 +104,7 @@ export default function SignUp() {
                     ></Form.Control>
                   </Form.Group>
                   <Form.Group as={Col} id="lastName">
-                    <Form.Label>Last Name</Form.Label>
+                    <Form.Label>Last Name*</Form.Label>
                     <Form.Control
                       type="text"
                       onChange={(e) => setLastName(e.target.value)}
@@ -126,7 +126,7 @@ export default function SignUp() {
                   
                   
                   <Form.Group as={Col} id="lastName">
-                    <Form.Label>Date of Admission</Form.Label>
+                    <Form.Label>Date of Admission*</Form.Label>
                     <DatePicker
                       className="w-100 form-control"
                       selected={selectedDate}
@@ -143,7 +143,7 @@ export default function SignUp() {
                   </Form.Group>
                 </Row>
                 <Form.Group id="email">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Email*</Form.Label>
                   <Form.Control
                     type="email"
                     ref={emailRef}
@@ -151,7 +151,7 @@ export default function SignUp() {
                   ></Form.Control>
                 </Form.Group>
                 <Form.Group id="password">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>Password*</Form.Label>
                   <Form.Control
                     type="password"
                     ref={passwordRef}
@@ -159,7 +159,7 @@ export default function SignUp() {
                   ></Form.Control>
                 </Form.Group>
                 <Form.Group id="password-confirm">
-                  <Form.Label>Password Confirm</Form.Label>
+                  <Form.Label>Password Confirm*</Form.Label>
                   <Form.Control
                     type="password"
                     ref={passwordConfirmRef}
