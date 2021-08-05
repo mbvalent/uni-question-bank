@@ -62,7 +62,7 @@ const EditPaper = () => {
         console.log(res.data);
         if(res.data){
           setSubjectsOption(res.data);
-          console.log('subjectsOption', res.data)
+          console.log('subjectsOption', res.data);
         }
       }).catch((err) => {
         console.error(err);
@@ -107,10 +107,10 @@ const EditPaper = () => {
   const onSubmit = async e => {
     e.preventDefault();
     let paper = {
-      branchName: 'branchName',
-      session: 'session',
-      subject: 'subject',
-      yearWithSem: 'yearWithSem',
+      branchName: branchName,
+      session: session,
+      subject: subject,
+      yearWithSem: yearWithSem,
     }
     try {
       const result = await axios.patch(`/papers/${id}`, paper);

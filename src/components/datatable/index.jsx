@@ -28,7 +28,7 @@ export default function Datatable({ data }) {
           <thead className="text-center thead-dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Banch Name</th>
+              <th scope="col">Branch Name</th>
               <th scope="col">Year & Sem</th>
               <th scope="col">Subject</th>
               <th scope="col">Session</th>

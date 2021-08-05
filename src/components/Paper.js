@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Card, Container, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Paper = ({ paper }) => {
   const [newPaper, setNewPaper] = useState('');
   const [error, setError] = useState('');
   
+  const history = useHistory();
+
+
   const handlePdfClick = (e) => {
     e.preventDefault();
-    window.location.href = "http://www.africau.edu/images/default/sample.pdf"
+    history.push(`/view-paper/${paper.pdf}`);
+    // window.location.href = "http://www.africau.edu/images/default/sample.pdf"
   };
 
   useEffect(() => {
